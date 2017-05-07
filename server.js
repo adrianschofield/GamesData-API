@@ -1,6 +1,9 @@
 var express =require('express');
 var app = express();
 var PORT = process.env.PORT || 3000;
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 var games = [{
     id: 1,
@@ -25,6 +28,7 @@ var games = [{
     completed: false,
     finished: false
 }];
+var gameNextId = 3;
 
 app.get('/', function(req, res, next){
     res.send('GamesData API root');
@@ -52,6 +56,18 @@ app.get('/games/:id', function (req, res, next) {
         res.status(404).send();
     }
     
+});
+
+//POST /games
+app.post('/games', function (req, res, next) {
+    var body = req.body;
+
+    body.id = gameNextId;
+    gameNextId++;
+
+    games.push(body);
+
+    res.json(body);
 });
 
 app.listen(PORT, function(){
