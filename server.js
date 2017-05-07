@@ -7,31 +7,6 @@ var db = require('./db.js');
 
 app.use(bodyParser.json());
 
-var games = [{
-    id: 1,
-    name: 'Skyrim',
-    platfrom: 'Xbox',
-    timePlayed: 45,
-    hoursPlayed: 0,
-    minsPlayed: 45,
-    like: true,
-    current: false,
-    completed: false,
-    finished: false
-}, {
-    id: 2,
-    name: 'Planet Coaster',
-    platfrom: 'PC',
-    timePlayed: 165,
-    hoursPlayed: 2,
-    minsPlayed: 45,
-    like: true,
-    current: true,
-    completed: false,
-    finished: false
-}];
-var gameNextId = 3;
-
 app.get('/', function(req, res, next){
     res.send('GamesData API root');
 });
@@ -39,18 +14,39 @@ app.get('/', function(req, res, next){
 //GET /games
 
 app.get('/games', function(req, res, next) {
-    res.json(games);
+    var query = req.query;
+    var where = {};
+
+    if(query.hasOwnProperty('platform') && query.platform.trim().length > 0)
+    {
+        where.platform = query.platform;
+    }
+
+
+    db.games.findAll({where: where}).then(function(games){
+        if(!!games) {
+            res.json(games);
+        } else {
+            res.status(404).send();
+        }
+    }, function (e){
+        res.status(500).send();
+    });
 });
+
 //GET /games/:id
 app.get('/games/:id', function (req, res, next) {
     var gamesId = parseInt(req.params.id, 10);
-    var matchedGame = _.findWhere(games, {id: gamesId});
 
-    if(matchedGame) {
-        res.json(matchedGame);
-    } else {
-        res.status(404).send();
-    }
+    db.games.findById(gamesId).then(function(game){
+        if(!!game) {
+            res.json(game.toJSON());
+        } else {
+            res.status(404).send();
+        }
+    }, function (e){
+        res.status(500).send();
+    });
     
 });
 
