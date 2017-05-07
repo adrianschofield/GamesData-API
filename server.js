@@ -66,24 +66,29 @@ app.post('/games', function (req, res, next) {
 
 //DELETE /games/:id
 
-app.delete('.games/:id', function (req, res, next){
-    //var gamesId = parseInt(req.params.id, 10);
+app.delete('/games/:id', function (req, res, next) {
+    var gamesId = parseInt(req.params.id, 10);
     var where = {};
 
-    where.id = req.params.id;
+    where.id = gamesId;
 
-    db.games.destroy({where: where}).then(function (rowsDeleted) {
-        console.log(rowsDeleted);
-        if(rowsDeleted === 0) {
-            console.log('couldnt find row to deleted');
-            res.status(404).json({
-                error: 'No game with id'
-            });
-        } else {
-            res.status(204).send();
+    try {
+        db.games.destroy({ where: where }).then(function (rowsDeleted) {
+            console.log(rowsDeleted);
+            if (rowsDeleted === 0) {
+                console.log('couldnt find row to deleted');
+                res.status(404).json({
+                    error: 'No game with id'
+                });
+            } else {
+                res.status(204).send();
+            }
+        }), function (e) {
+            res.status(500).json(e).send;
         }
-    }), function (e) {
-        res.status(500).json(e).send;
+    }
+    catch (err) {
+        console.log(err.message);
     }
 })
 
