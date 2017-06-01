@@ -18,7 +18,13 @@ if (env === 'production'){
 var db = {};
 
 db.games = sequelize.import(__dirname + '/models/game.js');
+db.users = sequelize.import(__dirname + '/models/user.js');
+db.token = sequelize.import(__dirname + '/models/token.js');
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+db.games.belongsTo(db.users);
+db.users.hasMany(db.games);
+
 
 module.exports = db;
