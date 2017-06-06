@@ -124,7 +124,7 @@ app.delete('/games/:id', middleware.requireAuthentication, function (req, res) {
 //Update a game with id of id
 
 app.put('/games/:id', middleware.requireAuthentication, function (req, res) {
-    var body = _.pick(req.body, 'name', 'platform', 'current', 'timePlayed');
+    var body = _.pick(req.body, 'name', 'platform', 'like', 'current', 'timePlayed');
     var gamesId = parseInt(req.params.id, 10);
     var attributes = {};
     var where = {
@@ -138,6 +138,10 @@ app.put('/games/:id', middleware.requireAuthentication, function (req, res) {
 
     if (body.hasOwnProperty('platform')) {
         attributes.platform = body.platform;
+    }
+
+    if (body.hasOwnProperty('like')) {
+        attributes.like = body.like;
     }
 
     if (body.hasOwnProperty('current')) {
