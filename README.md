@@ -104,23 +104,23 @@ Success
 Response: HTTP 200
 
 The body will contain a JSON array of games objects, here's a sample object:
-```
-	{
-        "id": 2,
-        "name": "Counter-Strike",
-        "platform": "steam",
-        "timePlayed": 0,
-        "hours": 0,
-        "minutes": 0,
-        "like": false,
-        "current": false,
-        "completed": false,
-        "finished": false,
-        "mutiplayer": false,
-        "createdAt": "2017-05-14T17:51:22.096Z",
-        "updatedAt": "2017-05-14T17:51:22.108Z",
-        "userId": 1
-    }
+```javascript
+{
+	"id": 2,
+	"name": "Counter-Strike",
+	"platform": "steam",
+	"timePlayed": 0,
+	"hours": 0,
+	"minutes": 0,
+	"like": false,
+	"current": false,
+	"completed": false,
+	"finished": false,
+	"mutiplayer": false,
+	"createdAt": "2017-05-14T17:51:22.096Z",
+	"updatedAt": "2017-05-14T17:51:22.108Z",
+	"userId": 1
+}
 ```
 Error
 RESPONSE: HTTP 404 (Not Found)
