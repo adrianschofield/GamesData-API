@@ -104,7 +104,7 @@ app.delete('/games/:id', middleware.requireAuthentication, function (req, res) {
         db.games.destroy({where: where}).then(function (rowsDeleted) {
             console.log(rowsDeleted);
             if (rowsDeleted === 0) {
-                console.log('couldnt find row to deleted');
+                console.log('couldnt find row to delete');
                 res.status(404).json({
                     error: 'No game with id'
                 });
