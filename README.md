@@ -9,11 +9,13 @@ The server is easy to install so long as node.js version x.xx is installed
 * Clone this repository 
 * Open a node prompt and run npm install
 * Once successfully installed, you can run the service by:
+
 ```
         node server.js
+```
 or
+```
         nodemon server.js 
-
 ```
 		
 ## About the Service
