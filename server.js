@@ -21,7 +21,7 @@ app.get('/', function(req, res, next){
 
 //GET /games
 //Get all games
-app.get('/games',  function(req, res) {
+app.get('/games', middleware.requireAuthentication, function(req, res) {
     var query = req.query;
     var where = {};
 
@@ -198,6 +198,9 @@ app.get('/data/dashboard', function(req, res) {
                 //}
             }, this);
             results.totalGames = games.length;
+            //res.setHeader('Access-Control-Expose-Headers', 'Custom-Header')
+            res.setHeader('Custom-Header', 'CustomTest');
+
             res.json(results);
         } else {
             res.status(404).send();
@@ -206,6 +209,7 @@ app.get('/data/dashboard', function(req, res) {
         res.status(500).send();
     });
 });
+
 //POST /users
 app.post('/users', function (req, res) {
     var body = _.pick(req.body, 'email', 'password');

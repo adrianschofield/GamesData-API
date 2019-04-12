@@ -65,7 +65,7 @@ function getDashboardData() {
     
 }
 
-function processDashboardData(data) {
+function processDashboardData(data, status, resp) {
 	//set the config here
 	var tempData = [];
 	config.data.datasets[0].data.push(data.lessThanHourGames);
@@ -86,5 +86,8 @@ function processDashboardData(data) {
 		outputText = outputText + item + "</BR>";
 	})
 	text.innerHTML = outputText;
+
+	var debug = document.getElementById("debug");
+	debug.innerHTML = resp.getAllResponseHeaders();
 }
 
