@@ -4,6 +4,11 @@ This is a REST API for managing video game data using Node.js, Express and Seque
 
 ## How to Run 
 
+## This repo is currently broken
+
+The repo curently won't work until I update the models to support the more recent version
+of sequelize. I had to upgrade sequelize because of a security problem
+
 The server is easy to install so long as node.js version x.xx is installed
 
 * Clone this repository 
